@@ -1,6 +1,6 @@
 {
-  "name": "proof_of_existence",
-  "version": "1.0.0",
+  "name": "bitcoin-proof-of-existence",
+  "version": "1.0.1",
   "description": "A library that takes advantage of Bitcoin's address scheme to prove the existence of digital documents at a point in time.",
   "main": "index.js",
   "engines": {
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/coreyphillips/proof_of_existence.git"
+    "url": "git+https://github.com/coreyphillips/proof-of-existence.git"
   },
   "keywords": [
     "bitcoin",
@@ -20,10 +20,11 @@
   "author": "Corey Phillips",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/coreyphillips/proof_of_existence/issues"
+    "url": "https://github.com/coreyphillips/proof-of-existence/issues"
   },
-  "homepage": "https://github.com/coreyphillips/proof_of_existence#readme",
+  "homepage": "https://github.com/coreyphillips/proof-of-existence#readme",
   "dependencies": {
+    "axios": "^0.18.0",
     "bitcoinjs-lib": "^4.0.2",
     "moment": "^2.22.2"
   }

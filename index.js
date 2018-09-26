@@ -1,4 +1,5 @@
 const bitcoin = require("bitcoinjs-lib");
+const axios = require("axios");
 const moment = require("moment");
 
 const checkOrAddFileFromDataUri = async (dataUri = "") => {
@@ -8,11 +9,11 @@ const checkOrAddFileFromDataUri = async (dataUri = "") => {
 		let dateCreated = null;
 
 		//Setup Bitcoin Address
-		const { privateKey, p2shAddress, bech32Address } = generateAddresses(dataUri);
+		const { privateKey, p2shAddress, bech32Address } = generateAddressesFromDataUri(dataUri);
 
 		//Fetch Address Info To Determine If The File Already Exists (If (first_seen_receiving !== null) The File Exists)
-		const { balance: p2shBalance, first_seen_receiving: p2shFirstSeenReceiving } = await getAddressInfo(p2shAddress);
-		const { balance: bech32Balance, first_seen_receiving: bech32FirstSeenReceiving } = await getAddressInfo(bech32Address);
+		const { balance: p2shBalance, first_seen_receiving: p2shFirstSeenReceiving } = await _getAddressInfo(p2shAddress);
+		const { balance: bech32Balance, first_seen_receiving: bech32FirstSeenReceiving } = await _getAddressInfo(bech32Address);
 
 		if (p2shFirstSeenReceiving !== null || bech32FirstSeenReceiving !== null) {
 			exists = true;
@@ -61,7 +62,19 @@ const _isDataUri = (dataUri) => {
 	return !!dataUri.match(dataUriRegex);
 };
 
+const _getAddressInfo = async (address = "") => {
+	try {
+		const result = await axios({
+			method: "GET",
+			url: `https://api.blockchair.com/bitcoin/dashboards/address/${address}`
+		});
+		return { balance: result.data.data[address].address.balance, first_seen_receiving: result.data.data[address].address.first_seen_receiving}
+	} catch (e) {
+		console.log(e);
+	}
+};
+
 module.exports = {
-	checkOrAddFile,
-	generateAddresses
+	checkOrAddFileFromDataUri,
+	generateAddressesFromDataUri
 };
