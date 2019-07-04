@@ -1,4 +1,4 @@
-const bitcoin = require("bitcoinjs-lib");
+const bitcoin = require("groestlcoinjs-lib");
 const axios = require("axios");
 const moment = require("moment");
 
@@ -8,7 +8,7 @@ const checkOrAddFileFromDataUri = async (dataUri = "") => {
 		let exists = false;
 		let dateCreated = null;
 
-		//Setup Bitcoin Address
+		//Setup Groestlcoin Address
 		const { privateKey, p2shAddress, bech32Address } = generateAddressesFromDataUri(dataUri);
 
 		//Fetch Address Info To Determine If The File Already Exists (If (first_seen_receiving !== null) The File Exists)
@@ -66,7 +66,7 @@ const _getAddressInfo = async (address = "") => {
 	try {
 		const result = await axios({
 			method: "GET",
-			url: `https://api.blockchair.com/bitcoin/dashboards/address/${address}`
+			url: `https://api.blockchair.com/groestlcoin/dashboards/address/${address}`
 		});
 		return { balance: result.data.data[address].address.balance, first_seen_receiving: result.data.data[address].address.first_seen_receiving}
 	} catch (e) {
