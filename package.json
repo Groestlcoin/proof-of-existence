@@ -25,7 +25,7 @@
   "homepage": "https://github.com/groestlcoin/proof-of-existence#readme",
   "dependencies": {
     "axios": "^0.18.0",
-    "groestlcoinjs-lib": "https://github.com/Groestlcoin/groestlcoinjs-lib.git",
+    "groestlcoinjs-lib": "^4.0.2",
     "moment": "^2.22.2"
   }
 }
